@@ -28,10 +28,6 @@ Future<List<YAMLModel>> openFile() async {
         final value = item.substring(doisPontosIndex + 1).trim();
         final numberOfSpaces = (name.length - name.trimLeft().length);
 
-        if (name.trim() == 'path') {
-          var i = 1;
-        }
-
         YAMLModel novalinha = YAMLModel(
             name: name.trim(),
             value: value,
