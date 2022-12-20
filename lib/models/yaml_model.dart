@@ -2,13 +2,13 @@
 class YAMLModel {
   final String name;
   final dynamic value;
-  final String? father;
   final int numberOfSpaces;
+  List<YAMLModel>? filho;
 
   YAMLModel({
     required this.name,
     required this.value,
-    required this.father,
     required this.numberOfSpaces,
+    required this.filho,
   });
 }
