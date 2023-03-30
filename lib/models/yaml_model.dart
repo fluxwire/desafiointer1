@@ -1,6 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class YAMLModel {
   final String name;
   final dynamic value;
@@ -22,4 +22,18 @@ class YAMLModel {
   }
 
   String toJson() => json.encode(toMap());
+
+  YAMLModel copyWith({
+    String? name,
+    dynamic? value,
+    int? numberOfSpaces,
+    List<YAMLModel>? filho,
+  }) {
+    return YAMLModel(
+      name: name ?? this.name,
+      value: value ?? this.value,
+      numberOfSpaces: numberOfSpaces ?? this.numberOfSpaces,
+      filho: filho ?? this.filho,
+    );
+  }
 }

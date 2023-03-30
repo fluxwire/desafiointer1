@@ -8,7 +8,7 @@ int calculate() {
 
 Future<List<YAMLModel>> openFile() async {
   final file = await File(
-          'C:\\Users\\Laila\\Projetos\\Masterclass\\Intermediario\\desafiointer1\\lib\\assets\\pubspec_masterclass.yaml')
+          'C:\\Users\\Laila\\Projetos\\Masterclass\\Intermediario\\desafiointer1\\lib\\assets\\pubspec_casa_natal.yaml')
       .readAsLines();
 
   final List<YAMLModel> yamlList = [];
@@ -24,9 +24,11 @@ Future<List<YAMLModel>> openFile() async {
 
       //apenas um alor para a chave
       if (doisPontosIndex != -1) {
-        final name = item.substring(0, doisPontosIndex);
+        final origName = item.substring(0, doisPontosIndex);
+
+        final name = item.replaceAll('- ', '').substring(0, doisPontosIndex);
         final value = item.substring(doisPontosIndex + 1).trim();
-        final numberOfSpaces = (name.length - name.trimLeft().length);
+        final numberOfSpaces = (origName.length - origName.trimLeft().length);
 
         YAMLModel novalinha = YAMLModel(
             name: name.trim(),
@@ -39,7 +41,26 @@ Future<List<YAMLModel>> openFile() async {
         } else {
           yamlList.add(novalinha);
         }
-      } else {}
+      } else {
+        //codigo repetido
+        final origValue = item;
+
+        final name = '';
+        final value = item.replaceAll('- ', '').trim();
+        final numberOfSpaces = (origValue.length - origValue.trimLeft().length);
+
+        YAMLModel novalinha = YAMLModel(
+            name: name.trim(),
+            value: value,
+            numberOfSpaces: numberOfSpaces,
+            filho: null);
+
+        if (numberOfSpaces != 0) {
+          identificaPai(newItem: novalinha, list: yamlList);
+        } else {
+          yamlList.add(novalinha);
+        }
+      }
     }
   }
   return yamlList;
@@ -61,10 +82,16 @@ bool identificaPai(
       } else {
         if (item.filho == null) {
           item.filho = [];
+          // if (item.name == '') {
+          //   item = item.copyWith(name: item.filho!.length.toString());
+          // }
           item.filho!.add(newItem);
           adicionou = false;
           return true;
         } else {
+          // if (item.name == '') {
+          //   item = item.copyWith(name: item.filho!.length.toString());
+          // }
           item.filho!.add(newItem);
           adicionou = false;
           return true;
